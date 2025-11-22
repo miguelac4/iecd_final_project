@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:appinfo>
+			<xs:documentation>
+				Validacao dos utilizadores
+			</xs:documentation>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="lista">
+		<xs:complexType>
+	    	<xs:sequence>
+	        	<xs:element name="user" minOccurs="1" maxOccurs="unbounded">
+	          		<xs:complexType>
+	            		<xs:sequence>
+				        	<xs:element name="id" type="xs:string" />
+				            <xs:element name="lastupdated" type="xs:dateTime" />
+				            <xs:element name="username" type="userNameType" />
+				            <xs:element name="password" type="passwordType" />
+				            <xs:element name="nacionalidade" type="xs:string" />
+				            <xs:element name="idade" type="ageType" />
+				            <xs:element name="foto" type="xs:string" />
+				            <xs:element name="cor" type="xs:string" />
+	            		</xs:sequence>
+	          		</xs:complexType>
+	        	</xs:element>
+	      	</xs:sequence>
+	    </xs:complexType>
+	</xs:element>
+	
+	<xs:simpleType name="userNameType">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:documentation>
+					Valida nome curto ou nickname de um utilizador
+				</xs:documentation>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="[a-zA-Z0-9_-]{4,10}" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="passwordType">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:documentation>
+					Informação cifrada sobre a password em MD5 ou SHA:
+					MD5 (Message-Digest Algorithm 5) é um algoritmo mais antigo, que
+					gera
+					uma string de 128 bits.
+					SHA (Secure Hash Algorithm) é uma
+					família de algoritmos mais recentes e seguros,
+					que geram strings de
+					tamanhos diferentes dependendo da versão usada.
+					Por exemplo, SHA-1
+					gera uma string de 160 bits e SHA-256 gera uma
+					string de 256 bits.
+				</xs:documentation>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:minLength value="32" />		<!-- MD5 128 bits, 32 carateres hexadecimais -->
+			<xs:maxLength value="64" />		<!-- SHA 256 bits, 64 carateres hexadecimais -->
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ageType">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:documentation>
+					Valida a idade (em anos) de um utilizador
+				</xs:documentation>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:short">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="130" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

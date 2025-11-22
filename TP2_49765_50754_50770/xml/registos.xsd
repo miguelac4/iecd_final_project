@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:appinfo>
+			<xs:documentation>
+				Validacao dos utilizadores
+			</xs:documentation>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="registos">
+		<xs:complexType>
+	    	<xs:sequence>
+	        	<xs:element name="registo" minOccurs="0" maxOccurs="unbounded">
+	          		<xs:complexType>
+	            		<xs:sequence>
+				        	<xs:element name="id" type="xs:string" />
+				            <xs:element name="vitorias" type="registoRestrict" />
+				            <xs:element name="empates" type="registoRestrict" />
+				            <xs:element name="derrotas" type="registoRestrict" />
+	            		</xs:sequence>
+	          		</xs:complexType>
+	        	</xs:element>
+	      	</xs:sequence>
+	    </xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="registoRestrict">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:documentation>
+					Validacao do registo de vitorias/empates/derrotas
+				</xs:documentation>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="[0-9]{0,100}" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
